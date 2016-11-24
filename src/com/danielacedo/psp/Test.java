@@ -56,15 +56,15 @@ public class Test {
 	}
 	
 	private static void threadingMethod(Matrix matrix1, Matrix matrix2, Matrix result){
-		int nHilos = 4; //Number of threads we want it to be sliced into
+		int nThreads = 4; //Number of threads we want it to be sliced into
 		
 		int firstRow = 0; //Row for the thread to start calculating
 		
-		RowMultiplierThread threads[] = new RowMultiplierThread[nHilos];
-		for(int i = 0; i < nHilos; i++){
-			threads[i] = new RowMultiplierThread(firstRow, firstRow+(matrix1.getnRows()/nHilos), result, matrix1.getInnerMatrix(), matrix2.getInnerMatrix());
+		RowMultiplierThread threads[] = new RowMultiplierThread[nThreads];
+		for(int i = 0; i < nThreads; i++){
+			threads[i] = new RowMultiplierThread(firstRow, firstRow+(matrix1.getnRows()/nThreads), result, matrix1.getInnerMatrix(), matrix2.getInnerMatrix());
 			threads[i].start();
-			firstRow += matrix1.getnRows()/nHilos;
+			firstRow += matrix1.getnRows()/nThreads;
 		}
 		
 		for(int i = 0 ; i < threads.length; i++){
